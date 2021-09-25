@@ -2,7 +2,7 @@ const getRandomNumber = function (from, to) {
   from = Math.ceil(from); //MDN
   to = Math.floor(to); //MDN
 
-  if (from === to || to < 0) {
+  if (from === to || to < from || to < 0) {
     return false;
   }
 
@@ -10,7 +10,7 @@ const getRandomNumber = function (from, to) {
 };
 
 const getRandomNumberDot = function (from, to, count) {
-  if (from === to || to < 0) {
+  if (from === to || to < from || to < 0) {
     return false;
   }
 
