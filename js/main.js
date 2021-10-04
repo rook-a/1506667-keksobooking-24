@@ -1,4 +1,15 @@
 const AVATAR_COUNTS = new Array(10).fill(null);
+const locationLatMin = 35.65000;
+const locationLatMax = 35.70000;
+const locationLngMin = 139.70000;
+const locationLngMax = 139.80000;
+const numbersAfterDot = 5;
+const priceMin = 1000;
+const priceMax = 10000;
+const roomsMin = 1;
+const roomsMax = 5;
+const guestsMin = 1;
+const guestsMax = 10;
 
 const TYPE = [
   'palace',
@@ -43,7 +54,7 @@ const getRandomNumberDot = function (from, to, count = 0) {
 };
 
 const addZero = function (count) {
-  return count > 0 && count < 10 ? `0${count}` : count;
+  return count > 0 && count < AVATAR_COUNTS.length ? `0${count}` : count;
 };
 
 const getRandomArrayElement = function (elements) {
@@ -62,11 +73,9 @@ const getRandomArrayString = function (arr) {
   return strings;
 };
 
-//console.log(getRandomArrayString(FEATURES));
-
 const createAd = function (index) {
-  const locationLat = getRandomNumberDot(35.65000, 35.70000, 5);
-  const locationLng = getRandomNumberDot(139.70000, 139.80000, 5);
+  const locationLat = getRandomNumberDot(locationLatMin, locationLatMax, numbersAfterDot);
+  const locationLng = getRandomNumberDot(locationLngMin, locationLngMax, numbersAfterDot);
 
   return {
     author: {
@@ -75,10 +84,10 @@ const createAd = function (index) {
     offer: {
       title: 'Сдаются комфортные апартаменты',
       address: `${locationLat}, ${locationLng}`,
-      price: getRandomNumber(1000, 10000),
+      price: getRandomNumber(priceMin, priceMax),
       type: getRandomArrayElement(TYPE),
-      rooms: getRandomNumber(1, 5),
-      guests: getRandomNumber(1, 10),
+      rooms: getRandomNumber(roomsMin, roomsMax),
+      guests: getRandomNumber(guestsMin, guestsMax),
       checkin: getRandomArrayElement(CHECKIN),
       checkout: getRandomArrayElement(CHECKIN),
       features: getRandomArrayString(FEATURES),
@@ -93,9 +102,8 @@ const createAd = function (index) {
 };
 
 AVATAR_COUNTS.map((item, index) => createAd(index));
-
-//для тестов
 /*
+//для тестов
 const test = AVATAR_COUNTS.map((item, index) => createAd(index));
 console.log(test);
 */
