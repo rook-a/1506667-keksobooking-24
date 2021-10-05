@@ -39,29 +39,25 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-const getRandomNumber = function (from, to) {
+const getRandomNumber = (from, to) => {
   from = Math.ceil(from);
   to = Math.floor(to);
 
   return (from >= 0 && to > from) ? Math.round(Math.random() * (to - from) + from) : false;
 };
 
-const getRandomNumberDot = function (from, to, count = 0) {
+const getRandomNumberDot = (from, to, count = 0) => {
 
   const randomNumber = Math.random() * (to - from) + from;
 
   return (from >= 0 && to > from && count >= 0) ? Number(randomNumber.toFixed(count)) : false;
 };
 
-const addZero = function (count) {
-  return count > 0 && count < AVATAR_COUNTS.length ? `0${count}` : count;
-};
+const addZero = (count) => count > 0 && count < AVATAR_COUNTS.length ? `0${count}` : count;
 
-const getRandomArrayElement = function (elements) {
-  return elements[getRandomNumber(0, elements.length - 1)];
-};
+const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-const getRandomArrayString = function (arr) {
+const getRandomArrayString = (arr) => {
   const strings = [];
 
   for (let el = 0; el <= arr.length - 1; el++) {
@@ -73,7 +69,7 @@ const getRandomArrayString = function (arr) {
   return strings;
 };
 
-const createAd = function (index) {
+const createAd = (index) => {
   const locationLat = getRandomNumberDot(locationLatMin, locationLatMax, numbersAfterDot);
   const locationLng = getRandomNumberDot(locationLngMin, locationLngMax, numbersAfterDot);
 
