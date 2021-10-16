@@ -62,6 +62,10 @@ const adTemplate = (obj) => {
   }
 
   //avatar
+  avatar.onerror = () => {
+    avatar.remove();
+  };
+
   if (obj.offer.avatar === 0) {
     avatar.remove();
   } else {
