@@ -1,10 +1,10 @@
-const addPageDisabled = (number) => {
+const addPageDisabled = (boolean) => {
   const form = document.querySelector('.ad-form');
   const formElements = form.children;
   const filter = document.querySelector('.map__filters');
   const filterElements = filter.children;
 
-  if (number > 0) {
+  if (boolean) {
     form.classList.add('ad-form--disabled');
     filter.classList.add('map__filters--disabled');
 
