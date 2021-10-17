@@ -2,8 +2,8 @@ import {createAd} from './create-ad.js';
 import {adTemplate} from './ad-template.js';
 import {addPageDisabled} from './addPageDisabled.js';
 
-adTemplate(createAd());
-addPageDisabled(); // 1 - да / 0 или ничего - нет
+adTemplate(createAd(0));
+addPageDisabled(1); // 1 - да / 0 или ничего - нет
 
 //для тестов добавить AVATAR_COUNTS в импорт
 /*
