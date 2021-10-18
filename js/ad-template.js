@@ -69,7 +69,7 @@ const adTemplate = (obj) => {
   if (obj.offer.avatar === 0) {
     avatar.remove();
   } else {
-    avatar.src = obj.author.avatar; //NaN в номере
+    avatar.src = obj.author.avatar;
   }
 
   //features
