@@ -62,13 +62,23 @@ adPrice.addEventListener('invalid', () => {
     addErrorStyle(false, adPrice);
     disabledBtn(false);
   }
+
+  if (adPrice.value > MAX_PRICE_VALUE) {
+    adPrice.setCustomValidity(`Слишком высокая цена за ночь. Уменьшите на ${adPrice.value - MAX_PRICE_VALUE} руб.`);
+    addErrorStyle(true, adPrice);
+    disabledBtn(true);
+  } else {
+    adPrice.setCustomValidity('');
+    addErrorStyle(false, adPrice);
+    disabledBtn(false);
+  }
 });
 
 adPrice.addEventListener('input', () => {
   const priceValue = adPrice.value;
 
   if (priceValue > MAX_PRICE_VALUE) {
-    adPrice.setCustomValidity(`Слишком высокая цена за ночь. Уменьшите на ${priceValue - MAX_PRICE_VALUE} руб.`);
+    //adPrice.setCustomValidity(`Слишком высокая цена за ночь. Уменьшите на ${priceValue - MAX_PRICE_VALUE} руб.`);
     addErrorStyle(true, adPrice);
     disabledBtn(true);
   } else {
@@ -111,7 +121,7 @@ const onPriceChange = () => {
 adTypes.addEventListener('change', onPriceChange);
 
 //adRooms && adCapacity
-
+/*
 const disabledCapacity = () => {
   switch (adRooms.value) {
     case '1':
@@ -148,16 +158,19 @@ const disabledCapacity = () => {
 };
 
 adRooms.addEventListener('change', disabledCapacity);
+*/
 
-/*
 const onElementInvalid = () => {
   if (adRooms.value >= adCapacity.value) {
-    adRooms.setCustomValidity('Комнат хватает. Все хорошо!');
+    adRooms.setCustomValidity('');
     addErrorStyle(false, adRooms);
     addErrorStyle(false, adCapacity);
     disabledBtn(false);
   } else {
-    adRooms.setCustomValidity('');
+    adRooms.setCustomValidity('Комнат не хватает!');
+    addErrorStyle(true, adRooms);
+    addErrorStyle(true, adCapacity);
+    disabledBtn(true);
   }
 
   if (adRooms.value < adCapacity.value) {
@@ -167,17 +180,23 @@ const onElementInvalid = () => {
     disabledBtn(true);
   } else {
     adRooms.setCustomValidity('');
+    addErrorStyle(false, adRooms);
+    addErrorStyle(false, adCapacity);
+    disabledBtn(false);
   }
 };
 
 const onElementChange = () => {
   if (adRooms.value >= adCapacity.value) {
-    adRooms.setCustomValidity('Комнат хватает. Все хорошо!');
+    adRooms.setCustomValidity('');
     addErrorStyle(false, adRooms);
     addErrorStyle(false, adCapacity);
     disabledBtn(false);
   } else {
-    adRooms.setCustomValidity('');
+    adRooms.setCustomValidity('Комнат не хватает!');
+    addErrorStyle(true, adRooms);
+    addErrorStyle(true, adCapacity);
+    disabledBtn(true);
   }
 
   if (adRooms.value < adCapacity.value) {
@@ -187,6 +206,22 @@ const onElementChange = () => {
     disabledBtn(true);
   } else {
     adRooms.setCustomValidity('');
+    addErrorStyle(false, adRooms);
+    addErrorStyle(false, adCapacity);
+    disabledBtn(false);
+  }
+
+  if (adRooms.value === '100') {
+    adCapacity.value = adCapacity[3].value;
+    adCapacity[0].setAttribute('disabled', 'disabled');
+    adCapacity[1].setAttribute('disabled', 'disabled');
+    adCapacity[2].setAttribute('disabled', 'disabled');
+    adCapacity[3].removeAttribute('disabled', 'disabled');
+  } else {
+    adCapacity[0].removeAttribute('disabled', 'disabled');
+    adCapacity[1].removeAttribute('disabled', 'disabled');
+    adCapacity[2].removeAttribute('disabled', 'disabled');
+    adCapacity[3].setAttribute('disabled', 'disabled');
   }
 
   adRooms.reportValidity();
@@ -197,4 +232,4 @@ adRooms.addEventListener('invalid', onElementInvalid);
 adRooms.addEventListener('change', onElementChange);
 adCapacity.addEventListener('invalid', onElementInvalid);
 adCapacity.addEventListener('change', onElementChange);
-*/
+
