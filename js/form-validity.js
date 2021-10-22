@@ -81,24 +81,6 @@ adPrice.addEventListener('invalid', () => {
 });
 
 adPrice.addEventListener('input', () => {
-  /*
-  const priceValue = adPrice.value;
-
-  if (priceValue > MAX_PRICE_VALUE) {
-    adPrice.classList.add('ad-form__element-error');
-    adPrice.setCustomValidity(`Слишком высокая цена за ночь. Уменьшите цену на ${priceValue - MAX_PRICE_VALUE} руб.`);
-    return;
-  }
-
-  if (priceValue < adPrice.min) {
-    adPrice.classList.add('ad-form__element-error');
-    adPrice.setCustomValidity(`Цена за ночь меньше допустимой. Увеличьте цену на ${adPrice.min - priceValue} руб.`);
-    return;
-  }
-
-  adPrice.setCustomValidity('');
-  adPrice.classList.remove('ad-form__element-error');
-  */
   adPrice.reportValidity();
 });
 
