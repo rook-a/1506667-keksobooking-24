@@ -21,10 +21,10 @@ const PRICE_TO_TYPE = {
 };
 
 const ROOMS_TO_CAPACITY = {
-  1: [1],
-  2: [1, 2],
-  3: [1, 2, 3],
-  100: [0],
+  1: ['1'],
+  2: ['1', '2'],
+  3: ['1', '2', '3'],
+  100: ['0'],
 };
 
 //title
@@ -125,7 +125,7 @@ const onElementInvalid = () => {
   }
 };
 
-const onElementChange = () => {
+const switchGuestsCapacity = (rooms) => {
   if (adRooms.value >= adCapacity.value) {
     adRooms.setCustomValidity('');
   } else {
@@ -138,53 +138,24 @@ const onElementChange = () => {
     adRooms.setCustomValidity('');
   }
 
-  //---------------------------------------
-  /*
-  этот блок 146-159 находит нужные значения, но блокирует часть нужных
-
-  ROOMS_TO_CAPACITY[adRooms.value].forEach((item) => {
-    for (let i = 0; i < adCapacity.length; i++) {
-      console.log(`item = ${item}`);
-      console.log(`value = ${adCapacity[i]}`);
-
-      if (adCapacity[i].value === `${item}`) {
-        adCapacity[i].removeAttribute('disabled', 'disabled');
-        console.log(true);
-      } else {
-        adCapacity[i].setAttribute('disabled', 'disabled');
-        console.log(false);
-      }
-    }
+  adCapacityOption.forEach((item) => {
+    item.disabled = !ROOMS_TO_CAPACITY[rooms].includes(item.value);
   });
-  */
-  //-----------------------------------------------------------------
+
   adRooms.reportValidity();
   adCapacity.reportValidity();
-};
-
-const switchGuestsCapacity = (rooms) => {
-  adCapacityOption.forEach((item) => {
-    //console.log(item.value); //значение option.value
-    //console.log(ROOMS_TO_CAPACITY[rooms]); //массив гостей
-    //console.log(rooms); //value выбранного значения
-    //console.log(ROOMS_TO_CAPACITY[rooms].includes(`${item.value}`));
-    //console.log(item.value === ROOMS_TO_CAPACITY[rooms][0]);
-
-    if (item.value === ROOMS_TO_CAPACITY[rooms][0]) {
-      item.selected = true;
-    }
-    item.disabled = !ROOMS_TO_CAPACITY[rooms].includes(`${item.value}`);
-  });
 };
 
 adRooms.addEventListener('change', (evt) => {
   switchGuestsCapacity(evt.target.value);
 });
 
+adCapacity.addEventListener('change', (evt) => {
+  switchGuestsCapacity(evt.target.value);
+});
+
 adRooms.addEventListener('invalid', onElementInvalid);
-adRooms.addEventListener('change', onElementChange);
 adCapacity.addEventListener('invalid', onElementInvalid);
-adCapacity.addEventListener('change', onElementChange);
 
 //time in && time out
 adTimeIn.addEventListener('change', () => {
@@ -197,13 +168,13 @@ adTimeOut.addEventListener('change', () => {
 
 //submit validity
 const onFormValidityCheck = (evt) => {
-  evt.preventDefault();
-
   if (!adTitle.reportValidity()) {
+    evt.preventDefault();
     adTitle.classList.add('ad-form__element-error');
   }
 
   if (!adPrice.reportValidity()) {
+    evt.preventDefault();
     adPrice.classList.add('ad-form__element-error');
   }
 
