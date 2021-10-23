@@ -29,4 +29,6 @@ const addPageDisabled = (isDisabled) => {
   }
 };
 
+addPageDisabled(true);
+
 export {addPageDisabled};

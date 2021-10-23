@@ -73,7 +73,8 @@ const createAd = (index) => {
   };
 };
 
-AVATAR_COUNTS.map((item, index) => createAd(index));
+const appendAds = AVATAR_COUNTS.map((item, index) => createAd(index));
 
 export {AVATAR_COUNTS};
 export {createAd};
+export {appendAds};
