@@ -1,6 +1,6 @@
 import {addPageDisabled} from './add-page-disabled.js';
+import {AVATAR_COUNTS} from './create-ad.js';
 import {createAd} from './create-ad.js';
-import {appendAds} from './create-ad.js';
 import {adTemplate} from './template-ad.js';
 
 const address = document.querySelector('#address');
@@ -59,7 +59,7 @@ const defaultPinIcon = L.icon({
 
 const pinGroup = L.layerGroup().addTo(map);
 
-const createCustomAd = (item, index) => {
+const createCustomAd = (item) => {
   const {location} = item;
   const lat = location.lat;
   const lng = location.lng;
@@ -73,9 +73,9 @@ const createCustomAd = (item, index) => {
     },
   );
 
-  defaultPins.addTo(pinGroup).bindPopup(adTemplate(createAd(index)));
+  defaultPins.addTo(pinGroup).bindPopup(adTemplate(item));
 };
 
-appendAds.forEach((item, index) => {
-  createCustomAd(item, index);
+AVATAR_COUNTS.forEach((item, index) => {
+  createCustomAd(createAd(index));
 });
