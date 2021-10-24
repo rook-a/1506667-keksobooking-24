@@ -1,4 +1,3 @@
-const mapContainer = document.querySelector('#map-canvas');
 const popupTemplate = document.querySelector('#card').content.querySelector('.popup');
 const types = document.querySelector('#type').children;
 
@@ -97,9 +96,7 @@ const adTemplate = (obj) => {
     });
   }
 
-  fragment.appendChild(popupElement);
-
-  return  mapContainer.appendChild(fragment);
+  return fragment.appendChild(popupElement);
 };
 
 export {adTemplate};

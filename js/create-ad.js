@@ -73,7 +73,5 @@ const createAd = (index) => {
   };
 };
 
-AVATAR_COUNTS.map((item, index) => createAd(index));
-
 export {AVATAR_COUNTS};
 export {createAd};
