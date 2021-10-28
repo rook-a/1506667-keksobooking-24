@@ -5,8 +5,9 @@ import {formReset} from './form-reset.js';
 
 const createLoader = () => {
   const CREATE_AD_COUNT = 10;
+  const GET_DATA_URL = 'https://24.javascript.pages.academy/keksobooking/data';
 
-  return fetch('https://24.javascript.pages.academy/keksobooking/data')
+  return fetch(GET_DATA_URL)
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -25,6 +26,7 @@ const createLoader = () => {
 
 const createUpload = () => {
   const adForm = document.querySelector('.ad-form');
+  const UPLOAD_DATA_URL = 'https://24.javascript.pages.academy/keksobooking';
 
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -32,7 +34,7 @@ const createUpload = () => {
     const formData = new FormData(evt.target);
 
     fetch(
-      'https://24.javascript.pages.academy/keksobooking',
+      UPLOAD_DATA_URL,
       {
         method: 'POST',
         body: formData,
