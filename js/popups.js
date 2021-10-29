@@ -22,13 +22,13 @@ const addPopup = (name) => {
   const templateElement = template.cloneNode(true);
 
   document.addEventListener('click', () => {
-    templateElement.classList.add('hidden');
+    templateElement.remove();
   });
 
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
-      templateElement.classList.add('hidden');
+      templateElement.remove();
     }
   });
 
@@ -36,7 +36,7 @@ const addPopup = (name) => {
     const templateBtn = templateElement.querySelector('.error__button');
 
     templateBtn.addEventListener('click', () => {
-      templateElement.classList.add('hidden');
+      templateElement.remove();
     });
   }
 
