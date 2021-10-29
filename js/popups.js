@@ -1,43 +1,47 @@
 const addDataErrorPopup = (errText) => {
-  const mapContainer = document.querySelector('.map');
-  const dataErrorTemplate = document.querySelector('#error-data').content.querySelector('.error-data');
-  const errorDataText = dataErrorTemplate.querySelector('.error-data__text');
-  const errorBtn = dataErrorTemplate.querySelector('.error-data__button');
+  const mapFilters = document.querySelector('.map__filters-container');
+  const dataErrorPopup = document.querySelector('.error-data');
+  const errorDataText = dataErrorPopup.querySelector('.error-data__text');
+  const errorBtn = dataErrorPopup.querySelector('.error-data__button');
 
-  mapContainer.appendChild(dataErrorTemplate);
+  mapFilters.insertAdjacentElement('beforebegin', dataErrorPopup);
 
-  dataErrorTemplate.classList.remove('hidden');
   errorDataText.textContent = `${errText}`;
+  dataErrorPopup.classList.remove('hidden');
 
   errorBtn.addEventListener('click', () => {
-    dataErrorTemplate.classList.add('hidden');
-  });
+    dataErrorPopup.classList.add('hidden');
+  }, { once: true });
 };
 
 const addPopup = (name) => {
   const pageBody = document.querySelector('.body');
   const template = document.querySelector(`#${name}`).content.querySelector(`.${name}`);
 
-  pageBody.appendChild(template);
+  const templateFragment = document.createDocumentFragment();
+  const templateElement = template.cloneNode(true);
 
   document.addEventListener('click', () => {
-    template.classList.add('hidden');
+    templateElement.classList.add('hidden');
   });
 
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
-      template.classList.add('hidden');
+      templateElement.classList.add('hidden');
     }
   });
 
   if (name === 'error') {
-    const templateBtn = template.querySelector('.error__button');
+    const templateBtn = templateElement.querySelector('.error__button');
 
     templateBtn.addEventListener('click', () => {
-      template.classList.add('hidden');
+      templateElement.classList.add('hidden');
     });
   }
+
+  templateFragment.appendChild(templateElement);
+  pageBody.appendChild(templateFragment);
 };
 
 export {addDataErrorPopup};

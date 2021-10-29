@@ -20,7 +20,7 @@ const adTemplate = (obj) => {
   const photo = popupElement.querySelector('.popup__photo');
 
 
-  const checked = (objValue, element) => (objValue === undefined) ? element.remove() : element.textContent = objValue;
+  const checked = (objValue, element) => (!objValue) ? element.remove() : element.textContent = objValue;
 
   checked(obj.offer.title, title);
   checked(obj.offer.address, address);
@@ -70,7 +70,7 @@ const adTemplate = (obj) => {
   }
 
   //features
-  if (obj.offer.features === undefined) {
+  if (!obj.offer.features) {
     featureContainer.remove();
   } else {
     const modifiers = obj.offer.features.map((item) => `popup__feature--${item}`);
@@ -85,7 +85,7 @@ const adTemplate = (obj) => {
   }
 
   //photos
-  if (obj.offer.photos === undefined) {
+  if (!obj.offer.photos) {
     photos.remove();
   } else {
     obj.offer.photos.forEach((item, index) => {

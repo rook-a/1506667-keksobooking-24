@@ -3,26 +3,24 @@ import {addDataErrorPopup} from './popups.js';
 import {addPopup} from './popups.js';
 import {formReset} from './form-reset.js';
 
-const createLoader = () => {
-  const CREATE_AD_COUNT = 10;
-  const GET_DATA_URL = 'https://24.javascript.pages.academy/keksobooking/data';
+const CREATE_AD_COUNT = 10;
+const GET_DATA_URL = 'https://24.javascript.pages.academy/keksobooking/data';
 
-  return fetch(GET_DATA_URL)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
+const createLoader = () => fetch(GET_DATA_URL)
+  .then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
 
-      throw new Error(`${response.status} ${response.statusText}`);
-    })
-    .then((data) => {
-      data.slice(0, CREATE_AD_COUNT)
-        .forEach((item) => createCustomAd(item));
-    })
-    .catch((err) => {
-      addDataErrorPopup(err);
-    });
-};
+    throw new Error(`${response.status} ${response.statusText}`);
+  })
+  .then((data) => {
+    data.slice(0, CREATE_AD_COUNT)
+      .forEach((item) => createCustomAd(item));
+  })
+  .catch((err) => {
+    addDataErrorPopup(err);
+  });
 
 const createUpload = () => {
   const adForm = document.querySelector('.ad-form');

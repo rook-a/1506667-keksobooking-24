@@ -64,13 +64,13 @@ adPrice.addEventListener('invalid', () => {
     return;
   }
 
-  if (adPrice.value > MAX_PRICE_VALUE) {
+  if (Number(adPrice.value) > MAX_PRICE_VALUE) {
     adPrice.classList.add('ad-form__element-error');
     adPrice.setCustomValidity(`Слишком высокая цена за ночь. Уменьшите цену на ${adPrice.value - MAX_PRICE_VALUE} руб.`);
     return;
   }
 
-  if (adPrice.value < adPrice.min) {
+  if (Number(adPrice.value) < Number(adPrice.min)) {
     adPrice.classList.add('ad-form__element-error');
     adPrice.setCustomValidity(`Цена за ночь меньше допустимой. Увеличьте цену на ${adPrice.min - adPrice.value} руб.`);
     return;
@@ -163,3 +163,5 @@ const onFormValidityCheck = (evt) => {
 };
 
 adForm.addEventListener('submit', onFormValidityCheck);
+
+export {onPriceChange};
