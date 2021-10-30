@@ -21,23 +21,29 @@ const addPopup = (name) => {
   const templateFragment = document.createDocumentFragment();
   const templateElement = template.cloneNode(true);
 
-  document.addEventListener('click', () => {
+  const onKeyClick = () => {
     templateElement.remove();
-  });
 
-  document.addEventListener('keydown', (evt) => {
+    // eslint-disable-next-line no-use-before-define
+    document.removeEventListener('keydown', onKeyDown);
+  };
+
+  const onKeyDown = (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
       templateElement.remove();
     }
-  });
+    document.removeEventListener('click', onKeyClick);
+  };
+
+  document.addEventListener('click', onKeyClick, {once: true});
+
+  document.addEventListener('keydown', onKeyDown, {once: true});
 
   if (name === 'error') {
     const templateBtn = templateElement.querySelector('.error__button');
 
-    templateBtn.addEventListener('click', () => {
-      templateElement.remove();
-    });
+    templateBtn.addEventListener('click', onKeyClick, {once: true});
   }
 
   templateFragment.appendChild(templateElement);
