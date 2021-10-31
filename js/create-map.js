@@ -1,6 +1,4 @@
 import {addPageDisabled} from './add-page-disabled.js';
-import {AVATAR_COUNTS} from './create-ad.js';
-import {createAd} from './create-ad.js';
 import {adTemplate} from './template-ad.js';
 
 const address = document.querySelector('#address');
@@ -8,9 +6,19 @@ const address = document.querySelector('#address');
 const TOKYO_CENTER_LAT = 35.6895;
 const TOKYO_CENTER_LNG = 139.6917;
 
+const MAIN_PIN_SIZE_WIDTH = 52;
+const MAIN_PIN_SIZE_HEIGHT = 52;
+const MAIN_PIN_SIZE_ANCHOR_WIDTH = 26;
+const MAIN_PIN_SIZE_ANCHOR_HEIGHT = 52;
+
+const DEFAULT_PIN_SIZE_WIDTH = 40;
+const DEFAULT_PIN_SIZE_HEIGHT = 40;
+const DEFAULT_PIN_SIZE_ANCHOR_WIDTH = 20;
+const DEFAULT_PIN_SIZE_ANCHOR_HEIGHT = 40;
+
 address.value = `${TOKYO_CENTER_LAT}, ${TOKYO_CENTER_LNG}`;
 
-const map = L.map('map-canvas')
+const mapCanvas = L.map('map-canvas')
   .on('load', () => {
     addPageDisabled(false);
   })
@@ -24,12 +32,12 @@ L.tileLayer(
   {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
-).addTo(map);
+).addTo(mapCanvas);
 
 const mainPinIcon = L.icon({
   iconUrl: './../img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: [MAIN_PIN_SIZE_WIDTH, MAIN_PIN_SIZE_HEIGHT],
+  iconAnchor: [MAIN_PIN_SIZE_ANCHOR_WIDTH, MAIN_PIN_SIZE_ANCHOR_HEIGHT],
 });
 
 const mainPin = L.marker(
@@ -43,7 +51,7 @@ const mainPin = L.marker(
   },
 );
 
-mainPin.addTo(map);
+mainPin.addTo(mapCanvas);
 
 mainPin.on('moveend', (evt) => {
   const location = evt.target.getLatLng();
@@ -53,11 +61,11 @@ mainPin.on('moveend', (evt) => {
 
 const defaultPinIcon = L.icon({
   iconUrl: './../img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [DEFAULT_PIN_SIZE_WIDTH, DEFAULT_PIN_SIZE_HEIGHT],
+  iconAnchor: [DEFAULT_PIN_SIZE_ANCHOR_WIDTH, DEFAULT_PIN_SIZE_ANCHOR_HEIGHT],
 });
 
-const pinGroup = L.layerGroup().addTo(map);
+const pinGroup = L.layerGroup().addTo(mapCanvas);
 
 const createCustomAd = (item) => {
   const {location} = item;
@@ -76,6 +84,19 @@ const createCustomAd = (item) => {
   defaultPins.addTo(pinGroup).bindPopup(adTemplate(item));
 };
 
-AVATAR_COUNTS.forEach((item, index) => {
-  createCustomAd(createAd(index));
-});
+const resetMap = () => {
+  mainPin.setLatLng({
+    lat: TOKYO_CENTER_LAT,
+    lng: TOKYO_CENTER_LNG,
+  });
+
+  mapCanvas.setView({
+    lat: TOKYO_CENTER_LAT,
+    lng: TOKYO_CENTER_LNG,
+  }, 12);
+
+  mapCanvas.closePopup();
+};
+
+export {createCustomAd};
+export {resetMap};

@@ -15,14 +15,12 @@ const adTemplate = (obj) => {
   const featureContainer = popupElement.querySelector('.popup__features');
   const featureList = featureContainer.querySelectorAll('.popup__feature');
 
-  const modifiers = obj.offer.features.map((item) => `popup__feature--${item}`);
-
   const description = popupElement.querySelector('.popup__description');
   const photos = popupElement.querySelector('.popup__photos');
   const photo = popupElement.querySelector('.popup__photo');
 
 
-  const checked = (objValue, element) => (objValue.length === 0) ? element.remove() : element.textContent = objValue;
+  const checked = (objValue, element) => (!objValue) ? element.remove() : element.textContent = objValue;
 
   checked(obj.offer.title, title);
   checked(obj.offer.address, address);
@@ -72,16 +70,22 @@ const adTemplate = (obj) => {
   }
 
   //features
-  featureList.forEach((featureListItem) => {
-    const modifier = featureListItem.classList[1];
+  if (!obj.offer.features) {
+    featureContainer.remove();
+  } else {
+    const modifiers = obj.offer.features.map((item) => `popup__feature--${item}`);
 
-    if (!modifiers.includes(modifier)) {
-      featureListItem.remove();
-    }
-  });
+    featureList.forEach((featureListItem) => {
+      const modifier = featureListItem.classList[1];
+
+      if (!modifiers.includes(modifier)) {
+        featureListItem.remove();
+      }
+    });
+  }
 
   //photos
-  if (obj.offer.photos.length === 0) {
+  if (!obj.offer.photos) {
     photos.remove();
   } else {
     obj.offer.photos.forEach((item, index) => {

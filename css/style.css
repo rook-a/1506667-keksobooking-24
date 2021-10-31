@@ -926,6 +926,7 @@ fieldset {
 
 /**
  * Сообщения об успешном и неуспешном создании объявления
+ * Сообщение об ошибке загрузки данных с сервера
  */
 
 .success,
@@ -1010,6 +1011,55 @@ fieldset {
 .error__button:active {
   outline: none;
   opacity: 0.6;
+}
+
+.error-data {
+  position: absolute;
+  top: 35%;
+  left: 35%;
+
+  width: 400px;
+
+  font-size: 16px;
+  text-align: center;
+  line-height: 20px;
+
+  padding: 30px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
+
+  z-index: 401;
+}
+
+.error-data__message {
+  margin: 0 0 10px 0;
+}
+
+.error-data__text {
+  margin: 0 0 20px 0;
+}
+
+.error-data__text {
+  font-size: 14px;
+}
+
+.error-data__button {
+  font-size: 14px;
+  padding: 5px 20px;
+  background-color: transparent;
+  border: none;
+}
+
+.error-data__button:hover,
+.error-data__button:focus {
+  outline: none;
+  -webkit-box-shadow: 0 0 2px 1px #ff6547;
+          box-shadow: 0 0 2px 1px #ff6547;
+}
+
+.error-data__button:active {
+  color: #FFFFFF;
+  background-color: #ff6547;
 }
 
 .visually-hidden {
