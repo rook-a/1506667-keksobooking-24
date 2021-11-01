@@ -1,10 +1,21 @@
-import {createCustomAd} from './create-map.js';
 import {addDataErrorPopup} from './popups.js';
 import {addPopup} from './popups.js';
 import {formReset} from './form-reset.js';
+import {createSortData} from './create-data-sort.js';
+import {setFilterChange} from './create-data-sort.js';
 
-const CREATE_AD_COUNT = 10;
 const GET_DATA_URL = 'https://24.javascript.pages.academy/keksobooking/data';
+
+const debounce = (cb, timeoutDelay = 500) => {
+
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => cb.apply(this, rest), timeoutDelay);
+  };
+};
 
 const createLoader = () => fetch(GET_DATA_URL)
   .then((response) => {
@@ -15,8 +26,10 @@ const createLoader = () => fetch(GET_DATA_URL)
     throw new Error(`${response.status} ${response.statusText}`);
   })
   .then((data) => {
-    data.slice(0, CREATE_AD_COUNT)
-      .forEach((item) => createCustomAd(item));
+    createSortData(data);
+    setFilterChange(debounce(
+      () => createSortData(data),
+    ));
   })
   .catch((err) => {
     addDataErrorPopup(err);

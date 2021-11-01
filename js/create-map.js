@@ -100,3 +100,4 @@ const resetMap = () => {
 
 export {createCustomAd};
 export {resetMap};
+export {pinGroup};
