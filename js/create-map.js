@@ -1,4 +1,5 @@
 import {addPageDisabled} from './add-page-disabled.js';
+import {addFilterDisabled} from './add-page-disabled.js';
 import {adTemplate} from './template-ad.js';
 
 const address = document.querySelector('#address');
@@ -21,6 +22,7 @@ address.value = `${TOKYO_CENTER_LAT}, ${TOKYO_CENTER_LNG}`;
 const mapCanvas = L.map('map-canvas')
   .on('load', () => {
     addPageDisabled(false);
+    addFilterDisabled(false);
   })
   .setView({
     lat: TOKYO_CENTER_LAT,

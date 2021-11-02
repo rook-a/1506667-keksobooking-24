@@ -1,8 +1,9 @@
 import {addDataErrorPopup} from './popups.js';
 import {addPopup} from './popups.js';
 import {formReset} from './form-reset.js';
-import {createSortData} from './create-data-sort.js';
 import {setFilterChange} from './create-data-sort.js';
+import {createSortData} from './create-data-sort.js';
+import {addFilterDisabled} from './add-page-disabled.js';
 
 const GET_DATA_URL = 'https://24.javascript.pages.academy/keksobooking/data';
 
@@ -33,6 +34,7 @@ const createLoader = () => fetch(GET_DATA_URL)
   })
   .catch((err) => {
     addDataErrorPopup(err);
+    addFilterDisabled(true);
   });
 
 const createUpload = () => {

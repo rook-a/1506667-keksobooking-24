@@ -8,46 +8,56 @@ const priceFilters = document.querySelector('#housing-price');
 const roomsFilters = document.querySelector('#housing-rooms');
 const guestsFilters = document.querySelector('#housing-guests');
 
+const CREATE_AD_COUNT = 10;
 const LOW = 10000;
 const HIGH = 50000;
+const DEFAULT = 'any';
 
-const getAdRank = (obj) => {
+const typeCheck = (obj) => {
+  if (obj.offer.type === typeFilters.value || typeFilters.value === DEFAULT) {
+    return true;
+  }
+};
+
+const roomsCheck = (obj) => {
+  if (obj.offer.rooms === Number(roomsFilters.value) || roomsFilters.value === DEFAULT) {
+    return true;
+  }
+};
+
+const guestsCheck = (obj) => {
+  if (obj.offer.guests === Number(guestsFilters.value) || guestsFilters.value === DEFAULT) {
+    return true;
+  }
+};
+
+const priceCheck = (obj) => {
   const MIDDLE_PRICE = obj.offer.price >= LOW && obj.offer.price <= HIGH;
-  const LOW_PRICE = obj.offer.price < LOW;
-  const HIGH_PRICE = obj.offer.price > HIGH;
+  const LOW_PRICE = obj.offer.price <= LOW;
+  const HIGH_PRICE = obj.offer.price >= HIGH;
 
-  let rank = 0;
-
-  if (obj.offer.type === typeFilters.value) {
-    rank += 1;
-  } else {
-    rank += -1;
+  if (priceFilters.value === DEFAULT) {
+    return true;
   }
 
   if (priceFilters.value === 'middle' && MIDDLE_PRICE) {
-    rank += 1;
-  } else if (priceFilters.value === 'low' && LOW_PRICE) {
-    rank += 1;
-  }else if (priceFilters.value === 'high' && HIGH_PRICE) {
-    rank += 1;
-  } else {
-    rank += -1;
+    return true;
   }
 
-  if (`${obj.offer.rooms}` === roomsFilters.value) {
-    rank += 1;
-  } else {
-    rank += -1;
+  if (priceFilters.value === 'low' && LOW_PRICE) {
+    return true;
   }
 
-  if (`${obj.offer.guests}` === guestsFilters.value) {
-    rank += 1;
-  } else {
-    rank += -1;
+  if (priceFilters.value === 'high' && HIGH_PRICE) {
+    return true;
   }
+};
+
+const getAdRank = (obj) => {
+  let rank = 0;
 
   if (!obj.offer.features) {
-    rank += -1;
+    rank -= 1;
   } else {
     obj.offer.features.forEach((feature) => {
       checkboxFilters.forEach((item) => {
@@ -83,10 +93,10 @@ const setFilterChange = (cb) => {
 };
 
 const createSortData = (arr) => {
-  const CREATE_AD_COUNT = 10;
   pinGroup.clearLayers();
   arr
     .slice()
+    .filter((obj) => typeCheck(obj) && priceCheck(obj) && roomsCheck(obj) && guestsCheck(obj))
     .sort(compareAd)
     .slice(0, CREATE_AD_COUNT)
     .forEach((item) => {
@@ -94,5 +104,5 @@ const createSortData = (arr) => {
     });
 };
 
-export {createSortData};
 export {setFilterChange};
+export {createSortData};
