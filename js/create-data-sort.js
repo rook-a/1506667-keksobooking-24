@@ -53,29 +53,18 @@ const priceCheck = (obj) => {
   }
 };
 
-const getAdRank = (obj) => {
-  let rank = 0;
+const checkFeatures = (obj) => {
+  const checkboxInput = document.querySelectorAll('.map__checkbox:checked');
+  const checkboxs = Array.from(checkboxInput);
 
   if (!obj.offer.features) {
-    rank -= 1;
-  } else {
-    obj.offer.features.forEach((feature) => {
-      checkboxFilters.forEach((item) => {
-        if ((feature === item.value) && item.checked) {
-          rank += 1;
-        }
-      });
-    });
+    return false;
   }
 
-  return rank;
-};
+  const checkboxValue = checkboxs.map((item) => item.value);
+  const filteredValue = checkboxValue.filter((value) => obj.offer.features.includes(value));
 
-const compareAd = (adOne, adTwo) => {
-  const rankOne = getAdRank(adOne);
-  const rankTwo = getAdRank(adTwo);
-
-  return rankTwo - rankOne;
+  return checkboxValue.length === filteredValue.length;
 };
 
 const setFilterChange = (cb) => {
@@ -95,9 +84,7 @@ const setFilterChange = (cb) => {
 const createSortData = (arr) => {
   pinGroup.clearLayers();
   arr
-    .slice()
-    .filter((obj) => typeCheck(obj) && priceCheck(obj) && roomsCheck(obj) && guestsCheck(obj))
-    .sort(compareAd)
+    .filter((obj) => typeCheck(obj) && priceCheck(obj) && roomsCheck(obj) && guestsCheck(obj) && checkFeatures(obj))
     .slice(0, CREATE_AD_COUNT)
     .forEach((item) => {
       createCustomAd(item);
