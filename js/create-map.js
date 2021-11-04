@@ -1,21 +1,21 @@
-import {addPageDisabled} from './add-page-disabled.js';
-import {addFilterDisabled} from './add-page-disabled.js';
+import {addPageDisabled} from './add-disabled.js';
+import {addFilterDisabled} from './add-disabled.js';
 import {adTemplate} from './template-ad.js';
-
-const address = document.querySelector('#address');
 
 const TOKYO_CENTER_LAT = 35.6895;
 const TOKYO_CENTER_LNG = 139.6917;
 
 const MAIN_PIN_SIZE_WIDTH = 52;
 const MAIN_PIN_SIZE_HEIGHT = 52;
-const MAIN_PIN_SIZE_ANCHOR_WIDTH = 26;
-const MAIN_PIN_SIZE_ANCHOR_HEIGHT = 52;
+const MAIN_PIN_ANCHOR_WIDTH = 26;
+const MAIN_PIN_ANCHOR_HEIGHT = 52;
 
 const DEFAULT_PIN_SIZE_WIDTH = 40;
 const DEFAULT_PIN_SIZE_HEIGHT = 40;
-const DEFAULT_PIN_SIZE_ANCHOR_WIDTH = 20;
-const DEFAULT_PIN_SIZE_ANCHOR_HEIGHT = 40;
+const DEFAULT_PIN_ANCHOR_WIDTH = 20;
+const DEFAULT_PIN_ANCHOR_HEIGHT = 40;
+
+const address = document.querySelector('#address');
 
 address.value = `${TOKYO_CENTER_LAT}, ${TOKYO_CENTER_LNG}`;
 
@@ -39,7 +39,7 @@ L.tileLayer(
 const mainPinIcon = L.icon({
   iconUrl: './../img/main-pin.svg',
   iconSize: [MAIN_PIN_SIZE_WIDTH, MAIN_PIN_SIZE_HEIGHT],
-  iconAnchor: [MAIN_PIN_SIZE_ANCHOR_WIDTH, MAIN_PIN_SIZE_ANCHOR_HEIGHT],
+  iconAnchor: [MAIN_PIN_ANCHOR_WIDTH, MAIN_PIN_ANCHOR_HEIGHT],
 });
 
 const mainPin = L.marker(
@@ -64,7 +64,7 @@ mainPin.on('moveend', (evt) => {
 const defaultPinIcon = L.icon({
   iconUrl: './../img/pin.svg',
   iconSize: [DEFAULT_PIN_SIZE_WIDTH, DEFAULT_PIN_SIZE_HEIGHT],
-  iconAnchor: [DEFAULT_PIN_SIZE_ANCHOR_WIDTH, DEFAULT_PIN_SIZE_ANCHOR_HEIGHT],
+  iconAnchor: [DEFAULT_PIN_ANCHOR_WIDTH, DEFAULT_PIN_ANCHOR_HEIGHT],
 });
 
 const pinGroup = L.layerGroup().addTo(mapCanvas);
