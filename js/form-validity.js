@@ -1,13 +1,3 @@
-const adForm = document.querySelector('.ad-form');
-const adTitle = adForm.querySelector('#title');
-const adPrice = adForm.querySelector('#price');
-const adTypes = adForm.querySelector('#type');
-const adRooms = adForm.querySelector('#room-number');
-const adCapacity = adForm.querySelector('#capacity');
-const adCapacityOption = Array.from(adCapacity.children);
-const adTimeIn = adForm.querySelector('#timein');
-const adTimeOut = adForm.querySelector('#timeout');
-
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_VALUE = 1000000;
@@ -26,6 +16,16 @@ const ROOMS_TO_CAPACITY = {
   3: ['1', '2', '3'],
   100: ['0'],
 };
+
+const adForm = document.querySelector('.ad-form');
+const adTitle = adForm.querySelector('#title');
+const adPrice = adForm.querySelector('#price');
+const adTypes = adForm.querySelector('#type');
+const adRooms = adForm.querySelector('#room-number');
+const adCapacity = adForm.querySelector('#capacity');
+const adCapacityOption = Array.from(adCapacity.children);
+const adTimeIn = adForm.querySelector('#timein');
+const adTimeOut = adForm.querySelector('#timeout');
 
 //title
 adTitle.addEventListener('invalid', () => {

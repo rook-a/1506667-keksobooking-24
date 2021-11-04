@@ -2,8 +2,8 @@ import {addDataErrorPopup} from './popups.js';
 import {addPopup} from './popups.js';
 import {formReset} from './form-reset.js';
 import {setFilterChange} from './create-data-sort.js';
-import {createSortData} from './create-data-sort.js';
-import {addFilterDisabled} from './add-page-disabled.js';
+import {createData} from './create-data-sort.js';
+import {addFilterDisabled} from './add-disabled.js';
 
 const GET_DATA_URL = 'https://24.javascript.pages.academy/keksobooking/data';
 
@@ -18,7 +18,7 @@ const debounce = (cb, timeoutDelay = 500) => {
   };
 };
 
-const createLoader = () => fetch(GET_DATA_URL)
+const createLoaderData = () => fetch(GET_DATA_URL)
   .then((response) => {
     if (response.ok) {
       return response.json();
@@ -27,9 +27,9 @@ const createLoader = () => fetch(GET_DATA_URL)
     throw new Error(`${response.status} ${response.statusText}`);
   })
   .then((data) => {
-    createSortData(data);
+    createData(data);
     setFilterChange(debounce(
-      () => createSortData(data),
+      () => createData(data),
     ));
   })
   .catch((err) => {
@@ -37,7 +37,7 @@ const createLoader = () => fetch(GET_DATA_URL)
     addFilterDisabled(true);
   });
 
-const createUpload = () => {
+const createUploadData = () => {
   const adForm = document.querySelector('.ad-form');
   const UPLOAD_DATA_URL = 'https://24.javascript.pages.academy/keksobooking';
 
@@ -65,5 +65,5 @@ const createUpload = () => {
   });
 };
 
-createLoader();
-createUpload();
+createLoaderData();
+createUploadData();
