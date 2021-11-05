@@ -16,6 +16,12 @@ const formReset = () => {
   clearPhotoPreview();
 };
 
-formBtn.addEventListener('click', formReset);
+const onClickBtn = (cb) => {
+  formBtn.addEventListener('click', () => {
+    formReset();
+    cb();
+  });
+};
 
 export {formReset};
+export {onClickBtn};

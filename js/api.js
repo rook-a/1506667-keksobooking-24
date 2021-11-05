@@ -1,8 +1,9 @@
 import {addDataErrorPopup} from './popups.js';
 import {addPopup} from './popups.js';
 import {formReset} from './form-reset.js';
-import {setFilterChange} from './create-data-sort.js';
-import {createData} from './create-data-sort.js';
+import {onClickBtn} from './form-reset.js';
+import {setFilterChange} from './create-data.js';
+import {createData} from './create-data.js';
 import {addFilterDisabled} from './add-disabled.js';
 
 const GET_DATA_URL = 'https://24.javascript.pages.academy/keksobooking/data';
@@ -28,6 +29,9 @@ const createLoaderData = () => fetch(GET_DATA_URL)
   })
   .then((data) => {
     createData(data);
+    onClickBtn(debounce(
+      () => createData(data),
+    ));
     setFilterChange(debounce(
       () => createData(data),
     ));
