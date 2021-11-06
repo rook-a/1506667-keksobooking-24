@@ -7,8 +7,9 @@ import {createData} from './create-data.js';
 import {addFilterDisabled} from './add-disabled.js';
 
 const GET_DATA_URL = 'https://24.javascript.pages.academy/keksobooking/data';
+const DELAY = 500;
 
-const debounce = (cb, timeoutDelay = 500) => {
+const debounce = (cb, timeoutDelay = DELAY) => {
 
   let timeoutId;
 
@@ -42,10 +43,10 @@ const createLoaderData = () => fetch(GET_DATA_URL)
   });
 
 const createUploadData = () => {
-  const adForm = document.querySelector('.ad-form');
+  const adFormContainer = document.querySelector('.ad-form');
   const UPLOAD_DATA_URL = 'https://24.javascript.pages.academy/keksobooking';
 
-  adForm.addEventListener('submit', (evt) => {
+  adFormContainer.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const formData = new FormData(evt.target);

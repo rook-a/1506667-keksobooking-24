@@ -1,37 +1,37 @@
 const addFilterDisabled = (isDisabled) => {
-  const filter = document.querySelector('.map__filters');
-  const filterElements = filter.children;
+  const filterContainer = document.querySelector('.map__filters');
+  const filterElementsContainer = filterContainer.children;
 
   if (isDisabled) {
-    filter.classList.add('map__filters--disabled');
+    filterContainer.classList.add('map__filters--disabled');
 
-    for (let i = 0; i < filterElements.length; i++) {
-      filterElements[i].setAttribute('disabled', 'disabled');
+    for (let i = 0; i < filterElementsContainer.length; i++) {
+      filterElementsContainer[i].setAttribute('disabled', 'disabled');
     }
   } else {
-    filter.classList.remove('map__filters--disabled');
+    filterContainer.classList.remove('map__filters--disabled');
 
-    for (let i = 0; i < filterElements.length; i++) {
-      filterElements[i].removeAttribute('disabled');
+    for (let i = 0; i < filterElementsContainer.length; i++) {
+      filterElementsContainer[i].removeAttribute('disabled');
     }
   }
 };
 
 const addPageDisabled = (isDisabled) => {
-  const form = document.querySelector('.ad-form');
-  const formElements = form.children;
+  const formContainer = document.querySelector('.ad-form');
+  const formElementsContainer = formContainer.children;
 
   if (isDisabled) {
-    form.classList.add('ad-form--disabled');
+    formContainer.classList.add('ad-form--disabled');
 
-    for (let i = 0; i < formElements.length; i++) {
-      formElements[i].setAttribute('disabled', 'disabled');
+    for (let i = 0; i < formElementsContainer.length; i++) {
+      formElementsContainer[i].setAttribute('disabled', 'disabled');
     }
   } else {
-    form.classList.remove('ad-form--disabled');
+    formContainer.classList.remove('ad-form--disabled');
 
-    for (let i = 0; i < formElements.length; i++) {
-      formElements[i].removeAttribute('disabled');
+    for (let i = 0; i < formElementsContainer.length; i++) {
+      formElementsContainer[i].removeAttribute('disabled');
     }
   }
 };

@@ -1,72 +1,72 @@
-const popupTemplate = document.querySelector('#card').content.querySelector('.popup');
-const types = document.querySelector('#type').children;
+const popupTemplateContainer = document.querySelector('#card').content.querySelector('.popup');
+const typesContainer = document.querySelector('#type').children;
 
 const adTemplate = (obj) => {
   const fragment = document.createDocumentFragment();
-  const popupElement = popupTemplate.cloneNode(true);
+  const popupElement = popupTemplateContainer.cloneNode(true);
 
-  const avatar = popupElement.querySelector('.popup__avatar');
-  const title = popupElement.querySelector('.popup__title');
-  const address = popupElement.querySelector('.popup__text--address');
-  const price = popupElement.querySelector('.popup__text--price');
-  const type = popupElement.querySelector('.popup__type');
-  const capacity = popupElement.querySelector('.popup__text--capacity');
-  const time = popupElement.querySelector('.popup__text--time');
+  const avatarContainer = popupElement.querySelector('.popup__avatar');
+  const titleContainer = popupElement.querySelector('.popup__title');
+  const addressContainer = popupElement.querySelector('.popup__text--address');
+  const priceContainer = popupElement.querySelector('.popup__text--price');
+  const typeContainer = popupElement.querySelector('.popup__type');
+  const capacityContainer = popupElement.querySelector('.popup__text--capacity');
+  const timeContainer = popupElement.querySelector('.popup__text--time');
   const featureContainer = popupElement.querySelector('.popup__features');
-  const featureList = featureContainer.querySelectorAll('.popup__feature');
+  const featureListContainer = featureContainer.querySelectorAll('.popup__feature');
 
-  const description = popupElement.querySelector('.popup__description');
-  const photos = popupElement.querySelector('.popup__photos');
-  const photo = popupElement.querySelector('.popup__photo');
+  const descriptionContainer = popupElement.querySelector('.popup__description');
+  const photosContainer = popupElement.querySelector('.popup__photos');
+  const photoContainer = popupElement.querySelector('.popup__photo');
 
 
   const checked = (objValue, element) => (!objValue) ? element.remove() : element.textContent = objValue;
 
-  checked(obj.offer.title, title);
-  checked(obj.offer.address, address);
-  checked(obj.offer.description, description);
+  checked(obj.offer.title, titleContainer);
+  checked(obj.offer.address, addressContainer);
+  checked(obj.offer.description, descriptionContainer);
 
   //price
   if (obj.offer.price === 0) {
-    price.remove();
+    priceContainer.remove();
   } else {
-    price.textContent = `${obj.offer.price} ₽/ночь`;
+    priceContainer.textContent = `${obj.offer.price} ₽/ночь`;
   }
 
   //capacity
   if (obj.offer.capacity === 0) {
-    capacity.remove();
+    capacityContainer.remove();
   } else {
-    capacity.textContent = `${obj.offer.rooms} комнаты для ${obj.offer.guests} гостей`;
+    capacityContainer.textContent = `${obj.offer.rooms} комнаты для ${obj.offer.guests} гостей`;
   }
 
   //time
   if (obj.offer.time === 0) {
-    time.remove();
+    timeContainer.remove();
   } else {
-    time.textContent = `Заезд после ${obj.offer.checkin}, выезд до ${obj.offer.checkout}`;
+    timeContainer.textContent = `Заезд после ${obj.offer.checkin}, выезд до ${obj.offer.checkout}`;
   }
 
   //type
   if (obj.offer.type === 0) {
-    type.remove();
+    typeContainer.remove();
   } else {
-    for (let i = 0; i < types.length; i++) {
-      if (types[i].value === obj.offer.type) {
-        type.textContent = types[i].textContent;
+    for (let i = 0; i < typesContainer.length; i++) {
+      if (typesContainer[i].value === obj.offer.type) {
+        typeContainer.textContent = typesContainer[i].textContent;
       }
     }
   }
 
   //avatar
-  avatar.onerror = () => {
-    avatar.remove();
+  avatarContainer.onerror = () => {
+    avatarContainer.remove();
   };
 
   if (obj.offer.avatar === 0) {
-    avatar.remove();
+    avatarContainer.remove();
   } else {
-    avatar.src = obj.author.avatar;
+    avatarContainer.src = obj.author.avatar;
   }
 
   //features
@@ -75,7 +75,7 @@ const adTemplate = (obj) => {
   } else {
     const modifiers = obj.offer.features.map((item) => `popup__feature--${item}`);
 
-    featureList.forEach((featureListItem) => {
+    featureListContainer.forEach((featureListItem) => {
       const modifier = featureListItem.classList[1];
 
       if (!modifiers.includes(modifier)) {
@@ -86,16 +86,16 @@ const adTemplate = (obj) => {
 
   //photos
   if (!obj.offer.photos) {
-    photos.remove();
+    photosContainer.remove();
   } else {
     obj.offer.photos.forEach((item, index) => {
       if (index > 0) {
-        const newPhoto = photo.cloneNode(true);
+        const newPhoto = photoContainer.cloneNode(true);
 
         newPhoto.src = item;
-        photos.appendChild(newPhoto);
+        photosContainer.appendChild(newPhoto);
       } else {
-        photo.src = item;
+        photoContainer.src = item;
       }
     });
   }
