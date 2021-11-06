@@ -17,151 +17,151 @@ const ROOMS_TO_CAPACITY = {
   100: ['0'],
 };
 
-const adForm = document.querySelector('.ad-form');
-const adTitle = adForm.querySelector('#title');
-const adPrice = adForm.querySelector('#price');
-const adTypes = adForm.querySelector('#type');
-const adRooms = adForm.querySelector('#room-number');
-const adCapacity = adForm.querySelector('#capacity');
-const adCapacityOption = Array.from(adCapacity.children);
-const adTimeIn = adForm.querySelector('#timein');
-const adTimeOut = adForm.querySelector('#timeout');
+const adFormContainer = document.querySelector('.ad-form');
+const adTitleContainer = adFormContainer.querySelector('#title');
+const adPriceContainer = adFormContainer.querySelector('#price');
+const adTypesContainer = adFormContainer.querySelector('#type');
+const adRoomsContainer = adFormContainer.querySelector('#room-number');
+const adCapacityContainer = adFormContainer.querySelector('#capacity');
+const adCapacityOptionContainer = Array.from(adCapacityContainer.children);
+const adTimeInContainer = adFormContainer.querySelector('#timein');
+const adTimeOutContainer = adFormContainer.querySelector('#timeout');
 
 //title
-adTitle.addEventListener('invalid', () => {
-  const valueLength = adTitle.value.length;
+adTitleContainer.addEventListener('invalid', () => {
+  const valueLength = adTitleContainer.value.length;
 
-  if (adTitle.validity.valueMissing) {
-    adTitle.classList.add('ad-form__element-error');
-    adTitle.setCustomValidity('Обязательное поле');
+  if (adTitleContainer.validity.valueMissing) {
+    adTitleContainer.classList.add('ad-form__element-error');
+    adTitleContainer.setCustomValidity('Обязательное поле');
     return;
   }
 
   if (valueLength < MIN_TITLE_LENGTH) {
-    adTitle.classList.add('ad-form__element-error');
-    adTitle.setCustomValidity(`Ещё ${MIN_TITLE_LENGTH - valueLength} симв.`);
+    adTitleContainer.classList.add('ad-form__element-error');
+    adTitleContainer.setCustomValidity(`Ещё ${MIN_TITLE_LENGTH - valueLength} симв.`);
     return;
   }
 
   if (valueLength > MAX_TITLE_LENGTH) {
-    adTitle.classList.add('ad-form__element-error');
-    adTitle.setCustomValidity(`Удалите лишние ${valueLength - MAX_TITLE_LENGTH} симв.`);
+    adTitleContainer.classList.add('ad-form__element-error');
+    adTitleContainer.setCustomValidity(`Удалите лишние ${valueLength - MAX_TITLE_LENGTH} симв.`);
     return;
   }
-  adTitle.classList.remove('ad-form__element-error');
-  adTitle.setCustomValidity('');
+  adTitleContainer.classList.remove('ad-form__element-error');
+  adTitleContainer.setCustomValidity('');
 });
 
-adTitle.addEventListener('input', () => {
-  adTitle.reportValidity();
+adTitleContainer.addEventListener('input', () => {
+  adTitleContainer.reportValidity();
 });
 
 //price
-adPrice.addEventListener('invalid', () => {
-  if (adPrice.validity.valueMissing) {
-    adPrice.classList.add('ad-form__element-error');
-    adPrice.setCustomValidity('Обязательное поле');
+adPriceContainer.addEventListener('invalid', () => {
+  if (adPriceContainer.validity.valueMissing) {
+    adPriceContainer.classList.add('ad-form__element-error');
+    adPriceContainer.setCustomValidity('Обязательное поле');
     return;
   }
 
-  if (Number(adPrice.value) > MAX_PRICE_VALUE) {
-    adPrice.classList.add('ad-form__element-error');
-    adPrice.setCustomValidity(`Слишком высокая цена за ночь. Уменьшите цену на ${adPrice.value - MAX_PRICE_VALUE} руб.`);
+  if (Number(adPriceContainer.value) > MAX_PRICE_VALUE) {
+    adPriceContainer.classList.add('ad-form__element-error');
+    adPriceContainer.setCustomValidity(`Слишком высокая цена за ночь. Уменьшите цену на ${adPriceContainer.value - MAX_PRICE_VALUE} руб.`);
     return;
   }
 
-  if (Number(adPrice.value) < Number(adPrice.min)) {
-    adPrice.classList.add('ad-form__element-error');
-    adPrice.setCustomValidity(`Цена за ночь меньше допустимой. Увеличьте цену на ${adPrice.min - adPrice.value} руб.`);
+  if (Number(adPriceContainer.value) < Number(adPriceContainer.min)) {
+    adPriceContainer.classList.add('ad-form__element-error');
+    adPriceContainer.setCustomValidity(`Цена за ночь меньше допустимой. Увеличьте цену на ${adPriceContainer.min - adPriceContainer.value} руб.`);
     return;
   }
 
-  adPrice.setCustomValidity('');
-  adPrice.classList.remove('ad-form__element-error');
+  adPriceContainer.setCustomValidity('');
+  adPriceContainer.classList.remove('ad-form__element-error');
 });
 
-adPrice.addEventListener('input', () => {
-  adPrice.reportValidity();
+adPriceContainer.addEventListener('input', () => {
+  adPriceContainer.reportValidity();
 });
 
 //type
 const onPriceChange = () => {
-  adPrice.placeholder = PRICE_TO_TYPE[adTypes.value];
-  adPrice.setAttribute('min', PRICE_TO_TYPE[adTypes.value]);
+  adPriceContainer.placeholder = PRICE_TO_TYPE[adTypesContainer.value];
+  adPriceContainer.setAttribute('min', PRICE_TO_TYPE[adTypesContainer.value]);
 };
 
-adTypes.addEventListener('change', onPriceChange);
+adTypesContainer.addEventListener('change', onPriceChange);
 
 //adRooms && adCapacity
 const onElementInvalid = () => {
-  if (adRooms.value >= adCapacity.value) {
-    adRooms.setCustomValidity('');
+  if (adRoomsContainer.value >= adCapacityContainer.value) {
+    adRoomsContainer.setCustomValidity('');
   } else {
-    adRooms.setCustomValidity('Комнат не хватает!');
+    adRoomsContainer.setCustomValidity('Комнат не хватает!');
   }
 
-  if (adRooms.value < adCapacity.value) {
-    adRooms.setCustomValidity('Нужно больше комнат!');
+  if (adRoomsContainer.value < adCapacityContainer.value) {
+    adRoomsContainer.setCustomValidity('Нужно больше комнат!');
   } else {
-    adRooms.setCustomValidity('');
+    adRoomsContainer.setCustomValidity('');
   }
 };
 
 const switchGuestsCapacity = (rooms) => {
-  if (adRooms.value >= adCapacity.value) {
-    adRooms.setCustomValidity('');
+  if (adRoomsContainer.value >= adCapacityContainer.value) {
+    adRoomsContainer.setCustomValidity('');
   } else {
-    adRooms.setCustomValidity('Комнат не хватает!');
+    adRoomsContainer.setCustomValidity('Комнат не хватает!');
   }
 
-  if (adRooms.value < adCapacity.value) {
-    adRooms.setCustomValidity('Нужно больше комнат!');
+  if (adRoomsContainer.value < adCapacityContainer.value) {
+    adRoomsContainer.setCustomValidity('Нужно больше комнат!');
   } else {
-    adRooms.setCustomValidity('');
+    adRoomsContainer.setCustomValidity('');
   }
 
-  adCapacityOption.forEach((item) => {
+  adCapacityOptionContainer.forEach((item) => {
     item.disabled = !ROOMS_TO_CAPACITY[rooms].includes(item.value);
   });
 
-  adRooms.reportValidity();
-  adCapacity.reportValidity();
+  adRoomsContainer.reportValidity();
+  adCapacityContainer.reportValidity();
 };
 
-adRooms.addEventListener('change', (evt) => {
+adRoomsContainer.addEventListener('change', (evt) => {
   switchGuestsCapacity(evt.target.value);
 });
 
-adCapacity.addEventListener('change', (evt) => {
+adCapacityContainer.addEventListener('change', (evt) => {
   switchGuestsCapacity(evt.target.value);
 });
 
-adRooms.addEventListener('invalid', onElementInvalid);
-adCapacity.addEventListener('invalid', onElementInvalid);
+adRoomsContainer.addEventListener('invalid', onElementInvalid);
+adCapacityContainer.addEventListener('invalid', onElementInvalid);
 
 //time in && time out
-adTimeIn.addEventListener('change', () => {
-  adTimeOut.value = adTimeIn.value;
+adTimeInContainer.addEventListener('change', () => {
+  adTimeOutContainer.value = adTimeInContainer.value;
 });
 
-adTimeOut.addEventListener('change', () => {
-  adTimeIn.value = adTimeOut.value;
+adTimeOutContainer.addEventListener('change', () => {
+  adTimeInContainer.value = adTimeOutContainer.value;
 });
 
 //submit validity
 const onFormValidityCheck = (evt) => {
-  if (!adTitle.reportValidity()) {
+  if (!adTitleContainer.reportValidity()) {
     evt.preventDefault();
-    adTitle.classList.add('ad-form__element-error');
+    adTitleContainer.classList.add('ad-form__element-error');
   }
 
-  if (!adPrice.reportValidity()) {
+  if (!adPriceContainer.reportValidity()) {
     evt.preventDefault();
-    adPrice.classList.add('ad-form__element-error');
+    adPriceContainer.classList.add('ad-form__element-error');
   }
 
 };
 
-adForm.addEventListener('submit', onFormValidityCheck);
+adFormContainer.addEventListener('submit', onFormValidityCheck);
 
 export {onPriceChange};

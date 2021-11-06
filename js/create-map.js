@@ -15,9 +15,9 @@ const DEFAULT_PIN_SIZE_HEIGHT = 40;
 const DEFAULT_PIN_ANCHOR_WIDTH = 20;
 const DEFAULT_PIN_ANCHOR_HEIGHT = 40;
 
-const address = document.querySelector('#address');
+const addressContainer = document.querySelector('#address');
 
-address.value = `${TOKYO_CENTER_LAT}, ${TOKYO_CENTER_LNG}`;
+addressContainer.value = `${TOKYO_CENTER_LAT}, ${TOKYO_CENTER_LNG}`;
 
 const mapCanvas = L.map('map-canvas')
   .on('load', () => {
@@ -58,7 +58,7 @@ mainPin.addTo(mapCanvas);
 mainPin.on('moveend', (evt) => {
   const location = evt.target.getLatLng();
 
-  address.value = `${location.lat.toFixed(5)}, ${location.lng.toFixed(5)}`;
+  addressContainer.value = `${location.lat.toFixed(5)}, ${location.lng.toFixed(5)}`;
 });
 
 const defaultPinIcon = L.icon({

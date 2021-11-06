@@ -7,27 +7,27 @@ const LOW = 10000;
 const HIGH = 50000;
 const DEFAULT = 'any';
 
-const checkboxFilters = document.querySelectorAll('.map__checkbox');
-const selectFilters = document.querySelectorAll('.map__filter');
-const typeFilters = document.querySelector('#housing-type');
-const priceFilters = document.querySelector('#housing-price');
-const roomsFilters = document.querySelector('#housing-rooms');
-const guestsFilters = document.querySelector('#housing-guests');
+const checkboxFiltersContainer = document.querySelectorAll('.map__checkbox');
+const selectFiltersContainer = document.querySelectorAll('.map__filter');
+const typeFiltersContainer = document.querySelector('#housing-type');
+const priceFiltersContainer = document.querySelector('#housing-price');
+const roomsFiltersContainer = document.querySelector('#housing-rooms');
+const guestsFiltersContainer = document.querySelector('#housing-guests');
 
 const typeCheck = (obj) => {
-  if (obj.offer.type === typeFilters.value || typeFilters.value === DEFAULT) {
+  if (obj.offer.type === typeFiltersContainer.value || typeFiltersContainer.value === DEFAULT) {
     return true;
   }
 };
 
 const roomsCheck = (obj) => {
-  if (obj.offer.rooms === Number(roomsFilters.value) || roomsFilters.value === DEFAULT) {
+  if (obj.offer.rooms === Number(roomsFiltersContainer.value) || roomsFiltersContainer.value === DEFAULT) {
     return true;
   }
 };
 
 const guestsCheck = (obj) => {
-  if (obj.offer.guests === Number(guestsFilters.value) || guestsFilters.value === DEFAULT) {
+  if (obj.offer.guests === Number(guestsFiltersContainer.value) || guestsFiltersContainer.value === DEFAULT) {
     return true;
   }
 };
@@ -37,26 +37,26 @@ const priceCheck = (obj) => {
   const LOW_PRICE = obj.offer.price <= LOW;
   const HIGH_PRICE = obj.offer.price >= HIGH;
 
-  if (priceFilters.value === DEFAULT) {
+  if (priceFiltersContainer.value === DEFAULT) {
     return true;
   }
 
-  if (priceFilters.value === 'middle' && MIDDLE_PRICE) {
+  if (priceFiltersContainer.value === 'middle' && MIDDLE_PRICE) {
     return true;
   }
 
-  if (priceFilters.value === 'low' && LOW_PRICE) {
+  if (priceFiltersContainer.value === 'low' && LOW_PRICE) {
     return true;
   }
 
-  if (priceFilters.value === 'high' && HIGH_PRICE) {
+  if (priceFiltersContainer.value === 'high' && HIGH_PRICE) {
     return true;
   }
 };
 
 const checkFeatures = (obj) => {
-  const checkboxInputs = document.querySelectorAll('.map__checkbox:checked');
-  const checkboxes = Array.from(checkboxInputs);
+  const checkboxInputsContainer = document.querySelectorAll('.map__checkbox:checked');
+  const checkboxes = Array.from(checkboxInputsContainer);
 
   if (!obj.offer.features) {
     return false;
@@ -69,13 +69,13 @@ const checkFeatures = (obj) => {
 };
 
 const setFilterChange = (cb) => {
-  selectFilters.forEach((item) => {
+  selectFiltersContainer.forEach((item) => {
     item.addEventListener('change', () => {
       cb();
     });
   });
 
-  checkboxFilters.forEach((item) => {
+  checkboxFiltersContainer.forEach((item) => {
     item.addEventListener('change', () => {
       cb();
     });
